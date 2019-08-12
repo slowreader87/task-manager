@@ -6,4 +6,4 @@ build steps for task-manager back-end API
 5. install robo 3T
 6. within your app dir install mongo db driver for node.js npm i mongodb@3.1.10
 (later - connection url will be mongodb://127.0.0.1:27017)
-7. 
+7. Somethig from work PC 
