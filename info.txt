@@ -1,0 +1,9 @@
+build steps for task-manager back-end API
+1. Run npm init (answering the Qs) within the task-manager directory
+2. install express with npm i express@4.16.4
+3. install nodemon globally with npm install nodemon@1.18.5 -g then to tell nodemon to monitor changes in all files in x folder of y type use nodemon src/app.js -e js, hbs this means run app.js and watch for changes on all files of those types
+4. Install (use onenote Mongo Db") the run mongo with /Users/charliea/mongodb/bin/mongod --dbpath=/Users/charliea/mongodb-data/. should say listening on port 27017
+5. install robo 3T
+6. within your app dir install mongo db driver for node.js npm i mongodb@3.1.10
+(later - connection url will be mongodb://127.0.0.1:27017)
+7. 
