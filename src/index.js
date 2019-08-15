@@ -7,6 +7,7 @@ const Task = require('./models/task')
 let allowCrossDomain = function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', "*");
 	res.header('Access-Control-Allow-Headers', "*");
+	res.header('Access-Control-Allow-Methods', "POST, PATCH, GET, DELETE")
 	next();
 }
 
@@ -50,6 +51,22 @@ app.post('/users', (req, res) => {
 
 })
 
+// patch existing user
+
+app.patch('/users/:id', async (req, res) => {
+	
+	try {
+		const user = await User.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators:true})
+		if (!user){
+			return res.status(404).send()
+		}
+		res.send(user)
+		
+	} catch (e) {
+		res.status(500).send(e)
+	}
+})
+
 // Task endpoints
 // get all tasks
 app.get('/tasks', async (req, res) => {
@@ -65,6 +82,22 @@ app.get('/tasks/:id', async (req, res) => {
 	try {
 		const task = await Task.findById(taskId)
 		res.send(task)
+	} catch (e) {
+		res.status(500).send(e)
+	}
+})
+
+// patch a task
+
+app.patch('/tasks/:id', async (req, res) => {
+	
+	try {
+		const task = await Task.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators:true})
+		if (!task){
+			return res.status(404).send()
+		}
+		res.send(task)
+		
 	} catch (e) {
 		res.status(500).send(e)
 	}
