@@ -19,6 +19,15 @@ const public = path.join(__dirname, '/public')
 
 app.use(express.static(public))
 
+app.set('view engine', 'hbs')
+
+const viewsDirPath = path.join(__dirname, '../views')
+app.set('views', viewsDirPath)
+
+app.get('', (req, res) => {
+	res.render('index')
+})
+
 // User endpoints
 
 // get all users - unlikely to need this in real app unless for an admin
