@@ -3,6 +3,7 @@ const app = express()
 require('../src/db/mongoose')
 const User = require('./models/user')
 const Task = require('./models/task')
+const path = require('path')
 
 let allowCrossDomain = function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', "*");
@@ -12,8 +13,11 @@ let allowCrossDomain = function(req, res, next) {
 }
 
 app.use(allowCrossDomain);
-
 app.use(express.json())
+
+const public = path.join(__dirname, '/public')
+
+app.use(express.static(public))
 
 // User endpoints
 
