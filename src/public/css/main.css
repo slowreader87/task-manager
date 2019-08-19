@@ -34,7 +34,9 @@ input {
     border: 1px solid rgb(214, 213, 213);
     padding: 2px 4px;
     border-radius: 5px;
-
+}
+#input-task-title {
+    padding: 2px 10px;
 }
 
 button {
@@ -89,4 +91,23 @@ a:hover {
 
 p {
     text-align: center;
+}
+
+textarea {
+    display:block;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 1rem;
+    border: lightgrey 1px solid;
+    width: auto;
+    box-sizing: border-box;
+    /* width: 80%;
+    height: 50%; */
+    width: 40vw;
+    height: 10rem;
+}
+
+input[type='checkbox'] {
+    display: inline;
+    margin-left: 10px;
 }
