@@ -23,7 +23,7 @@ const postRequest = (body, url) => {
     xhrPost.open('POST', url)
     xhrPost.setRequestHeader('Content-Type', 'application/json; charset=utf-8')
 
-    xhrPost.onloadend = () => {
+    xhrPost.onload = () => {
         if (!xhrPost.status === 201) {
             return console.log(xhrPost.status + xhrPost.statusText)
         }

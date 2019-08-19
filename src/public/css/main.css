@@ -69,6 +69,24 @@ a:hover {
     /* background: white; */
     background: rgba(219, 219, 243, 0.6);
     padding: 3px 6px;
-    border-radius: 5px;
-    
+    border-radius: 5px;   
+}
+
+#copyright, #credits {
+    font-size: 10px;
+    color: blue;
+    margin-top: 20px;
+    text-align: center;
+}
+
+#credits {
+    color: black;
+}
+
+.separator {
+    height: 10vh;
+}
+
+p {
+    text-align: center;
 }
