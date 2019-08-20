@@ -1,5 +1,5 @@
 // define generic get and post requests
-
+console.log('app.js has been called')
 const getRequest = (url) => {
 
     const xhr = new XMLHttpRequest()
@@ -14,8 +14,9 @@ const getRequest = (url) => {
         console.log(JSON.parse(xhr.response))
     }
     xhr.send()
-
 }
+
+
 
 const postRequest = (body, url) => {
     const xhrPost = new XMLHttpRequest()
@@ -69,6 +70,13 @@ const patchUser = (userId, body) => {
 const postUser = (user) => {
     postRequest(user, endpoints.users)
 }
+
+// const getTasks = (cb) => {
+//     const tasks = getRequest(endpoints.tasks)
+//     if(tasks) {
+//         return cb(undefined, tasks)
+// }   cb('error', undefined)
+// }
 
 const getTasks = () => {
     getRequest(endpoints.tasks)

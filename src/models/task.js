@@ -1,10 +1,13 @@
 const mongoose = require('mongoose')
 
 const Task = mongoose.model('Task', {
-    description: {
+    name: {
         type: String,
         required: true,
         trim: true
+    },
+    description: {
+        type: String
     },
     completed: {
         type: Boolean,
@@ -14,15 +17,10 @@ const Task = mongoose.model('Task', {
 
 module.exports = Task
 
-// test invoking task
+// const newTask = new Task({name: "go to work"})
 
-// const todo = new Task({
-//     description: 'wash car',
-//     completed: false
-// })
-
-// todo.save().then(()=>{
-//     console.log(todo)
-// }).catch((err)=>{
-//     console.log(err)
+// newTask.save().then((task)=>{
+//     console.log(task)
+// }).catch((e)=> {
+//     console.log(e)
 // })

@@ -45,6 +45,15 @@ const pageText = {
 }
 
 // site root route
+
+// temp testing something
+
+// app.get('/tasks', async (req, res)=>{
+// 	const tasks = await Task.find({})
+// 	res.send(tasks)
+// })
+
+//
 app.get('', (req, res) => {
 	res.render('index', {
 		title: 'My Task-Manager App',

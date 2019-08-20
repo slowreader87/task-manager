@@ -8,13 +8,10 @@ const fs = require('fs')
 
 const router = new express.Router()
 
-//
-
 // get all tasks
 router.get('/tasks', async (req, res) => {
-	//const tasks = await Task.find({})
-    //res.send(tasks)
-    res.render('tasks')
+	const tasks = await Task.find({})
+    res.send(tasks)
 })
 
 // create a task with form
