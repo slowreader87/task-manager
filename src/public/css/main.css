@@ -21,9 +21,10 @@ body {
     padding: 10px;
 }
 
-/* h2 {
-    text-align: center;
-} */
+h3 {
+    color: blue;
+    margin-bottom: 20px;
+}
 
 input {
     display:block;
@@ -111,3 +112,11 @@ input[type='checkbox'] {
     display: inline;
     margin-left: 10px;
 }
+
+.task-container {
+    display: flex;
+}
+
+/* .remove-task {
+    flex
+} */

@@ -1,5 +1,5 @@
 // define generic get and post requests
-console.log('app.js has been called')
+// console.log('app.js has been called')
 const getRequest = (url) => {
 
     const xhr = new XMLHttpRequest()
@@ -16,7 +16,52 @@ const getRequest = (url) => {
     xhr.send()
 }
 
+const getRequestAsPromise = (url) => {
+    return new Promise ((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
 
+        xhr.open('GET', url)
+        xhr.onload = () => {
+        if (!xhr.status ===200){
+            reject(xhr.status + xhr.statusText)
+        }
+        resolve(JSON.parse(xhr.response))
+    }
+        xhr.send()
+    })
+}
+
+const postRequestAsPromise = (url, body) => {
+    return new Promise ((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        
+        xhr.open('POST', url)
+        xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8')
+
+        xhr.onload = () => {
+            if(!xhr.status === 201){
+                reject(xhr.statusText)
+            }
+            resolve(xhr.response)
+        }
+        xhr.send(JSON.stringify(body))
+    })
+}
+
+const deleteTaskRequestAsPromise = (id) => {
+    return new Promise ((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+
+        xhr.open('DELETE', 'http://localhost:3000/tasks/' + id)
+        xhr.onloadend = () => {
+            if (!xhr.status === 200){
+                reject('An error occured with deleteRequestAsPromise')
+            }
+            resolve(xhr.response)
+        }
+        xhr.send()
+    })
+}
 
 const postRequest = (body, url) => {
     const xhrPost = new XMLHttpRequest()

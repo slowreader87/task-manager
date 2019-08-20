@@ -19,12 +19,11 @@ router.get('/createtask', (req, res) => {
     res.render('createtask')
 })
 
-
 // create a task
 router.post('/tasks', (req, res) => {
 	const task = new Task(req.body)
 
-
+	console.log('task router posted a task')
 	task.save().then((task) => {
 		res.status(201).send(task)
 	}).catch((err) => {
@@ -57,6 +56,16 @@ router.patch('/tasks/:id', async (req, res) => {
 		
 	} catch (e) {
 		res.status(500).send(e)
+	}
+})
+
+router.delete('/tasks/:id', async (req, res) => {
+	const id = req.params.id
+	try {
+		const task = await Task.findByIdAndDelete(id)
+		return res.send(task)
+	} catch (e) {
+		res.send(e)
 	}
 })
 
