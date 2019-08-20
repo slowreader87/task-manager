@@ -2,55 +2,49 @@
 
 const resultsArea = document.querySelector('#results-area')
 
-
-const printTasksFromPromise = async () => {
-    let resultsHTML = '<h3>Your Tasks</h3>'
-    const tasks = await getRequestAsPromise('http://localhost:3000/tasks')
-    resultsHTML += '<ul>'
-    tasks.forEach((task)=>{
-        resultsHTML +=`<li>${task.name}</li>`
-    })
-    resultsHTML += '</ul>'
-    resultsArea.innerHTML = resultsHTML
-}
-
-//printTasksFromPromise()
-
 const printTasksAndRemovesFromPromise = async () => {
     const resultsArea = document.querySelector('#results-area')
     resultsArea.innerHTML = ''
 
     const tasks = await getRequestAsPromise('http://localhost:3000/tasks')
 
-    const allTasksTitle = document.createElement('h3')
-    allTasksTitle.textContent = 'Your Tasks'
-    resultsArea.appendChild(allTasksTitle)
+    if (tasks.length > 0) {
+        const allTasksTitle = document.createElement('h2')
+        allTasksTitle.className = 'tasks-area-title'
 
-    tasks.forEach((task)  => {
-        const taskContainer = document.createElement('div')
-        taskContainer.className = 'task-container'
-        const taskDIV = document.createElement('div')
-        taskDIV.className = 'task-div'
-        const removeButton = document.createElement('button')
-        removeButton.textContent = 'Remove'
-        removeButton.className = 'remove-task'
+        allTasksTitle.textContent = 'Your Tasks'
+        resultsArea.appendChild(allTasksTitle)
 
-        taskDIV.textContent = task.name
-        removeButton.addEventListener('click', () => {
-            deleteTaskRequestAsPromise(task._id)
-            printTasksAndRemovesFromPromise()
+        tasks.forEach((task)  => {
+            const taskContainer = document.createElement('div')
+            taskContainer.className = 'task-container'
+            const taskDIV = document.createElement('div')
+            taskDIV.className = 'task-div'
+            const removeButton = document.createElement('button')
+            removeButton.textContent = 'Remove'
+            removeButton.className = 'remove-task'
+    
+            taskDIV.textContent = task.name
+            removeButton.addEventListener('click', () => {
+                deleteTaskRequestAsPromise(task._id)
+                printTasksAndRemovesFromPromise()
+            })
+    
+            taskContainer.appendChild(taskDIV)
+            taskContainer.appendChild(removeButton)
+            resultsArea.appendChild(taskContainer)
         })
 
-        taskDIV.appendChild(removeButton)
-        taskContainer.appendChild(taskDIV)
-        resultsArea.appendChild(taskContainer)
-    })
+    }
+    
+
+    
 }
 
 printTasksAndRemovesFromPromise()
 
 
-// creates a task based on form data
+// creates a task from form data
 
 document.querySelector('#create-task-form').addEventListener('submit', (e)=>{
     e.preventDefault()
@@ -65,7 +59,7 @@ document.querySelector('#create-task-form').addEventListener('submit', (e)=>{
     }
 
     postRequestAsPromise('http://localhost:3000/tasks', task)
-    printTasksFromPromise()
+    printTasksAndRemovesFromPromise()
     e.target.reset()
 })
 

@@ -21,9 +21,10 @@ body {
     padding: 10px;
 }
 
-h3 {
-    color: blue;
+.tasks-area-title {
+    color: #3d3c3c;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 input {
@@ -104,7 +105,7 @@ textarea {
     box-sizing: border-box;
     /* width: 80%;
     height: 50%; */
-    width: 40vw;
+    /* width: 40vw; */
     height: 10rem;
 }
 
@@ -115,8 +116,22 @@ input[type='checkbox'] {
 
 .task-container {
     display: flex;
+    /* border: 1px solid red; */
+    height: 40px;
+    margin-top: 5px;
 }
 
-/* .remove-task {
-    flex
-} */
+.task-container:hover {
+    background-color: rgba(189, 181, 181, 0.3);
+}
+
+.task-div {
+    /* border: 1px solid blue; */
+    flex:5;
+    padding: 10px 10px;
+}
+
+.remove-task {
+    margin: 0;
+    flex:1
+}
