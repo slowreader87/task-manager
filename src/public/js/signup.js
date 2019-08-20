@@ -9,8 +9,9 @@ document.querySelector('#sign-up-form').addEventListener('submit', (e) => {
     }
     //console.log(name, email, password)
     postUser(user)
-    e.target.reset()
-    const thankYou = `<h3> Thanks ${name} for signing up!</h3>
-    <p>please click <a href="/index.html">here</a> to sign-in</p>`
-    document.querySelector('.container').innerHTML = thankYou
+    // e.target.reset()
+    location.assign('/createtask')
+    // const thankYou = `<h3> Thanks ${name} for signing up!</h3>
+    // <p>please click <a href="/index.html">here</a> to sign-in</p>`
+    // document.querySelector('.container').innerHTML = thankYou
 })

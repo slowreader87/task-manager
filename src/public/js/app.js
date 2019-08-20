@@ -1,5 +1,11 @@
 // define generic get and post requests
 // console.log('app.js has been called')
+
+const endpoints = {
+    users: 'http://127.0.0.1:3000/users',
+    tasks: 'http://localhost:3000/tasks',
+}
+
 const getRequest = (url) => {
 
     const xhr = new XMLHttpRequest()
@@ -30,6 +36,63 @@ const getRequestAsPromise = (url) => {
         xhr.send()
     })
 }
+
+// generic request as promise (can use for GET, POST and DELETE)
+
+const makeRequestAsPromise = (method, url, id=undefined, body=undefined) => {
+    return new Promise ((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+
+        if (id) {
+            url = url + '/' + id
+        }
+
+        xhr.open(method, url)
+
+        if(body) {
+            xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8')
+        }
+
+        xhr.onload = () => {
+            if (!xhr.status >= 200 && !xhr.status >=300){
+                reject(xhr.status)
+            }
+            resolve(xhr.response)
+        }
+
+        xhr.send(JSON.stringify(body))
+    })
+}
+
+const getFromPromise = async (endpoint) => {
+    const res = await makeRequestAsPromise('GET', endpoint)
+    console.log(res)
+}
+
+//getFromPromise(endpoints.tasks) // get all tasks
+//getFromPromise(endpoints.users) // get all users
+
+const postFromPromise = async (endpoint, body) => {
+    const res = await makeRequestAsPromise('POST', endpoint, null, body)
+    console.log(res)
+}
+
+//postFromPromise(endpoints.tasks, {name:'handover money'})
+
+const deleteFromPromise = async (endpoint, id) =>{
+    const res = await makeRequestAsPromise('DELETE', endpoint, id)
+    console.log(res)
+}
+
+//deleteFromPromise(endpoints.tasks, '5d5c2025e121b053063140b8')
+
+const patchFromPromise = async (endpoint, id, body) =>{
+    const res = await makeRequestAsPromise('PATCH', endpoint, id, body)
+    console.log(res)
+}
+
+//patchFromPromise(endpoints.tasks, '5d5c46d764b99f540c3cbbff', {name:'throw rubbish'})
+
 
 const postRequestAsPromise = (url, body) => {
     return new Promise ((resolve, reject) => {
@@ -62,7 +125,7 @@ const deleteTaskRequestAsPromise = (id) => {
         xhr.send()
     })
 }
-
+// postRequest used by postUser within signup pages 
 const postRequest = (body, url) => {
     const xhrPost = new XMLHttpRequest()
 
@@ -77,6 +140,8 @@ const postRequest = (body, url) => {
     }
     xhrPost.send(JSON.stringify(body))
 }
+
+// patchRequest not yet used
 
 const patchRequest = (body, url) => {
     const xhrPost = new XMLHttpRequest()
@@ -95,70 +160,43 @@ const patchRequest = (body, url) => {
 
 // define specific get and post requests
 
-const endpoints = {
-    users: 'http://127.0.0.1:3000/users',
-    tasks: 'http://127.0.0.1:3000/tasks',
-}
-
 const getUsers = () => {
     getRequest(endpoints.users)
 }
 
+// getUser - not yet used
 const getUser = (userId) => {
     getRequest(endpoints.users + '/'+ userId)
 }
 
+// patchUser - not yet used
 const patchUser = (userId, body) => {
     patchRequest(body, endpoints.users + '/' + userId)
 }
+
+// postUser used in signup pages along with postRequest
 
 const postUser = (user) => {
     postRequest(user, endpoints.users)
 }
 
-// const getTasks = (cb) => {
-//     const tasks = getRequest(endpoints.tasks)
-//     if(tasks) {
-//         return cb(undefined, tasks)
-// }   cb('error', undefined)
-// }
-
+// getTasks - not used anymore
 const getTasks = () => {
     getRequest(endpoints.tasks)
 }
+
+// getTask - not used
 
 const getTask = (taskId) => {
     getRequest(endpoints.tasks + '/'+ taskId)
 }
 
+// patchTask - not used
 const patchTask = (taskId, body) => {
     patchRequest(body, endpoints.tasks + '/' + taskId)
 }
 
+// postTask - not used (using promises instead)
 const postTask = (body) => {
     postRequest(body, endpoints.tasks)
 }
-
-// calls //
-//getUsers()
-//getUser('5d52e6bbad543c1294e0c6d8')
-//getTasks()
-//getTask('5d52e9fd754c6012b8113c23')
-//getUser('5d52e7d9ef5018129938bc63')
-
-const user1 = {
-    name: 'Graham',
-    email: 'Graham@221b.com',
-    password: 'watson2'
-}
-
-//postUser(user1)
-
-const task1 = {
-    description: 'paint wall blue'
-}
-
-//postTask(task1)
-
-//patchTask('5d545aed89b92918ab0faca8', {description: 'wash and waxe car'})
-//patchUser('5d52e7d9ef5018129938bc63', {name:'Charlie Afif'})
