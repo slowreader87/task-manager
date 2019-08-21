@@ -7,9 +7,8 @@ document.querySelector('#sign-up-form').addEventListener('submit', (e) => {
     const user = {
         name, email, password
     }
-    //console.log(name, email, password)
-    postUser(user)
-    // e.target.reset()
+    
+    postFromPromise(endpoints.users, user)
     location.assign('/createtask')
     // const thankYou = `<h3> Thanks ${name} for signing up!</h3>
     // <p>please click <a href="/index.html">here</a> to sign-in</p>`

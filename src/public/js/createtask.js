@@ -1,12 +1,10 @@
-// console.log("createtask.js running")
-
 const resultsArea = document.querySelector('#results-area')
 
 const printTasksAndRemovesFromPromise = async () => {
     const resultsArea = document.querySelector('#results-area')
     resultsArea.innerHTML = ''
-
-    const tasks = await getRequestAsPromise('http://localhost:3000/tasks')
+    
+    const tasks = await getFromPromise(endpoints.tasks)
 
     if (tasks.length > 0) {
         const allTasksTitle = document.createElement('h2')
@@ -26,7 +24,7 @@ const printTasksAndRemovesFromPromise = async () => {
     
             taskDIV.textContent = task.name
             removeButton.addEventListener('click', () => {
-                deleteTaskRequestAsPromise(task._id)
+                deleteFromPromise(endpoints.tasks, task._id)
                 printTasksAndRemovesFromPromise()
             })
     
@@ -36,8 +34,6 @@ const printTasksAndRemovesFromPromise = async () => {
         })
 
     }
-    
-
     
 }
 
@@ -58,7 +54,7 @@ document.querySelector('#create-task-form').addEventListener('submit', (e)=>{
         completed
     }
 
-    postRequestAsPromise('http://localhost:3000/tasks', task)
+    postFromPromise(endpoints.tasks, task)
     printTasksAndRemovesFromPromise()
     e.target.reset()
 })
