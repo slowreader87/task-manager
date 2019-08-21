@@ -46,7 +46,13 @@ router.get('/tasks/:id', async (req, res) => {
 // patch a task
 
 router.patch('/tasks/:id', async (req, res) => {
+	const submittedUpdatesArr = Object.keys(req.body)
+	const allowedUpdates = ['name', 'description', 'completed']
+	const isValidUpdate = submittedUpdatesArr.every((update)=> allowedUpdates.includes(update))
 	
+	if (!isValidUpdate){
+		return res.status(400).send('invalid update submitted')
+	}
 	try {
 		const task = await Task.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators:true})
 		if (!task){
