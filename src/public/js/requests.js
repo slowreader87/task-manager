@@ -2,7 +2,8 @@
 
 const endpoints = {
     users: 'http://localhost:3000/users',
-    tasks: 'http://localhost:3000/tasks',
+    usersLogin: 'http://localhost:3000/users/login',
+    tasks: 'http://localhost:3000/tasks'
 }
 
 // generic request as promise (can use for GET, POST, DELETE and PATCH)

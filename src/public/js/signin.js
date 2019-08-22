@@ -6,6 +6,6 @@ document.querySelector('#sign-in-form').addEventListener('submit', (event) => {
     const password = event.target.elements.password.value
 
     const body = {email, password}
-    console.log('email: '+body.email + 'pass: ' + body.password)
 
+    postFromPromise(endpoints.usersLogin, body).then((response)=>console.log(response))
 })
