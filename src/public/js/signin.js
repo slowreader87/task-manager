@@ -7,5 +7,7 @@ document.querySelector('#sign-in-form').addEventListener('submit', (event) => {
 
     const body = {email, password}
 
-    postFromPromise(endpoints.usersLogin, body).then((response)=>console.log(response))
+    postFromPromise(endpoints.usersLogin, body)
+    .then((response)=>console.log(response))
+    .catch((e)=> console.log(e))
 })
