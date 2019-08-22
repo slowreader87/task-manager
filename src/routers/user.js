@@ -41,11 +41,13 @@ router.post('/users', async (req, res) => {
 })
 
 router.post('/users/login', async (req, res) => {
-	const user = await User.find({email:req.body.email})
-
-	if (!user){
-		return res.status(400).send()
+	try {
+		const user = await User.findByCredentials(req.body.email, req.body.password)
+		res.send(user)
+	} catch (e) {
+		res.status(400).send(e)
 	}
+
 })
 
 // get all users - unlikely to need this in real app unless for an admin

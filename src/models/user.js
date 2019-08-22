@@ -31,6 +31,21 @@ const userSchema = mongoose.Schema({
         minlength: 3
     }
 })
+
+userSchema.statics.findByCredentials = async function (email, password) {
+
+    const user = await User.findOne({email})
+
+    if (!user){
+        throw new Error ('unable to login')
+    }
+    const isMatch = await bcrypt.compare(password, user.password)
+    if (!isMatch) {
+        throw new Error ('unable to login')
+    }
+    return user
+}
+
 userSchema.pre('save', async function (next){
     const user = this
     if(user.isModified('password')) {

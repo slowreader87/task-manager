@@ -1,4 +1,4 @@
-// console.log('app.js has been called')
+//console.log('requests.js has been called')
 
 const endpoints = {
     users: 'http://localhost:3000/users',

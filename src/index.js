@@ -8,6 +8,12 @@ const hbs = require('hbs')
 const fs = require('fs')
 const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
+const moment = require('moment')
+
+console.log('last run ' + moment().format("Do, h:mm:ss a"))
+
+// const now = new Date
+// console.log(now.getHours() + ":" + now.getMinutes() +)
 
 let allowCrossDomain = function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', "*");
