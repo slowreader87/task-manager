@@ -23,7 +23,9 @@ const makeRequestAsPromise = (method, url, id=undefined, body=undefined) => {
 
         xhr.onload = () => {
             if (!xhr.status >= 200 && !xhr.status >=300){
-                reject(`${xhr.status} ${xhr.statusText} ${xhr.responseText}` )
+                console.log(xhr.status)
+                reject(xhr.statusText)
+                //reject(`${xhr.status} ${xhr.statusText} ${xhr.responseText}`)
             }
             resolve(JSON.parse(xhr.response))
         }
@@ -62,7 +64,8 @@ const patchFromPromise = async (endpoint, id, body) =>{
     return makeRequestAsPromise('PATCH', endpoint, id, body)
 }
 
-patchFromPromise(endpoints.tasks, '5d5cf6e094db1f5827116e9c', {age:'handover wallet'})
+//patchFromPromise(endpoints.users,'5d5c20c0ff346c5317868949', {password:'doodle'})
+//patchFromPromise(endpoints.tasks,'5d5cf6e094db1f5827116e9c', {name:32})
 
 // old code from here down:
 

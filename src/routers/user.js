@@ -13,12 +13,26 @@ router.post('/users', async (req, res) => {
 
 	const user = new User(req.body)
 
-	await user.save().then((user)=>{
-		res.send(user)
-	}).catch((err) =>{
-		res.status(400).send(err)
-	})
+	console.log(user)
+	if(!user) {
+		return res.status(404).send()
+	}
 
+	await user.save()
+	res.send(user)
+	// await user.save().then((user)=>{
+	// 	res.send(user)
+	// }).catch((err) =>{
+	// 	res.status(400).send(err)
+	// })
+})
+
+router.post('/users/login', async (req, res) => {
+	const user = await User.find({email:req.body.email})
+
+	if (!user){
+		return res.status(400).send()
+	}
 })
 
 // get all users - unlikely to need this in real app unless for an admin
@@ -46,15 +60,25 @@ router.get('/users/:id', async (req, res) => {
 // patch existing user
 
 router.patch('/users/:id', async (req, res) => {
+
+	const allowedUpdates = ['name', 'email', 'age', 'password']
+	const submittedUpdatesArr = Object.keys(req.body)
+	const isValidUpdate = submittedUpdatesArr.every(update => allowedUpdates.includes(update))
 	
+	if (!isValidUpdate){
+		return res.status(400).send('invalid user update')
+	}
+
 	try {
-		const user = await User.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators:true})
+		const user = await User.findById(req.params.id)
 		if (!user){
-			return res.status(404).send()
-		}
+			return res.status(404).send()}
+
+		submittedUpdatesArr.forEach((update)=> {user[update]=req.body[update]})
+		await user.save()
 		res.send(user)
-		
-	} catch (e) {
+		} 
+	catch (e) {
 		res.status(500).send(e)
 	}
 })
