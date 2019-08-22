@@ -8,6 +8,9 @@ document.querySelector('#sign-in-form').addEventListener('submit', (event) => {
     const body = {email, password}
 
     postFromPromise(endpoints.usersLogin, body)
-    .then((response)=>console.log(response))
+    .then((response)=>{
+        console.log(response)
+        location.assign('/createtask')
+    })
     .catch((e)=> console.log(e))
 })
