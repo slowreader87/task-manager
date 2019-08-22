@@ -28,7 +28,7 @@ const userSchema = mongoose.Schema({
         type: String,
         trim: true,
         required: true,
-        minlength: 0
+        minlength: 3
     }
 })
 userSchema.pre('save', async function (next){
@@ -38,6 +38,9 @@ userSchema.pre('save', async function (next){
     }
     next()
 })
+
+//userSchema.statics
+
 const User = mongoose.model('User', userSchema )
 
 module.exports = User

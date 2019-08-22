@@ -13,13 +13,26 @@ router.post('/users', async (req, res) => {
 
 	const user = new User(req.body)
 
-	console.log(user)
-	if(!user) {
-		return res.status(404).send()
-	}
-
 	await user.save()
-	res.send(user)
+	.then((user)=>res.status(201).send(`user ${user.name} created`))
+	.catch((e)=> {
+
+		if (e.message.includes('duplicate')){
+			res.status(400).send('User already exists, please sign-in')
+		} else if (e.message.includes('password') && e.message.includes('required')) {
+			res.status(400).send('Please provide a password')
+		} else if (e.message.includes('password') && e.message.includes('shorter')) {
+			res.status(400).send('Password too short')
+		} else if (e.message.includes('name') && e.message.includes('required')) {
+			res.status(400).send('Please enter your name')
+		} else if (e.message.includes('email') && e.message.includes('required')) {
+			res.status(400).send('Please enter your email')
+		} else 
+				res.status(400).send(e.message)	
+	})
+	// res.status(400).send(e.message))
+
+	
 	// await user.save().then((user)=>{
 	// 	res.send(user)
 	// }).catch((err) =>{

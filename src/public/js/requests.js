@@ -27,7 +27,8 @@ const makeRequestAsPromise = (method, url, id=undefined, body=undefined) => {
                 reject(xhr.statusText)
                 //reject(`${xhr.status} ${xhr.statusText} ${xhr.responseText}`)
             }
-            resolve(JSON.parse(xhr.response))
+            //resolve(JSON.parse(xhr.response))
+            resolve(xhr.response)
         }
 
         xhr.send(JSON.stringify(body))
@@ -48,6 +49,7 @@ const getFromPromise = (endpoint) => {
 //POST
 const postFromPromise = (endpoint, body) => {
     return makeRequestAsPromise('POST', endpoint, null, body)
+    //await makeRequestAsPromise('POST', endpoint, null, body).then((response)=> console.log(response)).catch((e)=>console.log(e))
 }
 
 //postFromPromise(endpoints.tasks, {name:'handover money'})

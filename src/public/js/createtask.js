@@ -4,7 +4,8 @@ const printTasksAndRemovesFromPromise = async () => {
     const resultsArea = document.querySelector('#results-area')
     resultsArea.innerHTML = ''
     
-    const tasks = await getFromPromise(endpoints.tasks)
+    const tasksRaw = await getFromPromise(endpoints.tasks)
+    const tasks = JSON.parse(tasksRaw)
 
     if (tasks.length > 0) {
         const allTasksTitle = document.createElement('h2')
