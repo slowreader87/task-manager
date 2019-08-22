@@ -22,13 +22,14 @@ const makeRequestAsPromise = (method, url, id=undefined, body=undefined) => {
         }
 
         xhr.onload = () => {
-            if (!xhr.status >= 200 && !xhr.status >=300){
-                console.log(xhr.status)
-                reject(xhr.statusText)
+            if (xhr.status >= 200 && xhr.status <=299){
+                resolve(xhr.response)
+                
                 //reject(`${xhr.status} ${xhr.statusText} ${xhr.responseText}`)
             }
+            
+            reject(xhr.response)
             //resolve(JSON.parse(xhr.response))
-            resolve(xhr.response)
         }
 
         xhr.send(JSON.stringify(body))
