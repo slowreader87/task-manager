@@ -12,11 +12,12 @@ const router = new express.Router()
 router.post('/users', async (req, res) => {
 
 	const user = new User(req.body)
-
-	await user.save()
-	.then((user)=>res.status(201).send(`user ${user.name} created`))
-	.catch((e)=> {
-
+	try {
+		await user.save()
+		const token = await user.generateAuthToken()
+		res.status(201).send({user, token})
+		
+	} catch (e) {
 		if (e.message.includes('duplicate')){
 			res.status(400).send('User already exists, please sign-in')
 		} else if (e.message.includes('password') && e.message.includes('required')) {
@@ -28,16 +29,8 @@ router.post('/users', async (req, res) => {
 		} else if (e.message.includes('email') && e.message.includes('required')) {
 			res.status(400).send('Please enter your email')
 		} else 
-				res.status(400).send(e.message)	
-	})
-	// res.status(400).send(e.message))
-
-	
-	// await user.save().then((user)=>{
-	// 	res.send(user)
-	// }).catch((err) =>{
-	// 	res.status(400).send(err)
-	// })
+			res.status(400).send(e.message)	
+	}
 })
 
 router.post('/users/login', async (req, res) => {
