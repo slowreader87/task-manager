@@ -59,7 +59,7 @@ const pageText = {
 // 	res.send(tasks)
 // })
 
-//
+// site root
 app.get('', (req, res) => {
 	res.render('index', {
 		title: 'My Task-Manager App',
@@ -68,6 +68,10 @@ app.get('', (req, res) => {
 		credits: pageText.credits
 	})
 })
+
+// app.get('/changedetails', (req, res) => {
+// 	res.render('changedetails')
+// })
 
 app.get('/results', async (req, res) => {
 	const users = await User.find({})
@@ -104,8 +108,7 @@ app.get('*', (req, res) => {
 		title: "Title: Overidden from res.render. Error page!",
 		errorText: "ErrorText: sorry, page not found",
 		copyright:pageText.copyright,
-		credits:pageText.credits,
-		date:today
+		credits:pageText.credits
 	})
 })
 

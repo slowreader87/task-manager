@@ -6,7 +6,7 @@ const endpoints = {
     usersMe: 'http://localhost:3000/users/me',
     usersLogout: 'http://localhost:3000/users/logout',
     usersLogoutAll: 'http://localhost:3000/users/logoutall',
-    usersChangeDetails:'http://localhost:3000/users/changedetails',
+    ChangeDetails:'http://localhost:3000/changedetails',
     tasks: 'http://localhost:3000/tasks'
 }
 
@@ -81,6 +81,9 @@ const patchFromPromise = async (endpoint, id, body) =>{
     return makeRequestAsPromise('PATCH', endpoint, id, body)
 }
 
+const patchFromPromiseWithToken = (endpoint, body, token) => {
+    return makeRequestAsPromise('PATCH', endpoint, null, body, token)
+}
 // create a GET request with Authorization token
 
 const makeRequestAsPromiseWithToken = (method, url, id=undefined, body=undefined, token=undefined) => {

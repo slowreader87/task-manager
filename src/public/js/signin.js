@@ -24,15 +24,16 @@ document.querySelector('#sign-in-form').addEventListener('submit', (event) => {
 // can't get this to work. I want to have the user login, then click the change details button
 // and it sends you on to the changedetails page with a pre-filled form of user details
 // user changes their details and clicks save which sends a patch to users/me
-document.querySelector('#change-details').addEventListener('click', () => {
-    const token = JSON.parse(localStorage.getItem('token'))
-    getFromPromisewithToken(endpoints.usersChangeDetails, token)
-    .then((response)=> {
-        //console.log(response)
-        location.assign(response)
-    })
-    .catch((e)=>console.log(e))
-})
+// document.querySelector('#change-details').addEventListener('click', () => {
+//     // location.assign(endpoints.ChangeDetails)
+//     const token = JSON.parse(localStorage.getItem('token'))
+//     getFromPromisewithToken(endpoints.ChangeDetails, token)
+//     .then((response)=> {
+//         console.log(response)
+//         //location.assign(response)
+//     })
+//     .catch((e)=>console.log(e))
+// })
 
 document.querySelector('#view-details').addEventListener('click', () => {
     const token = JSON.parse(localStorage.getItem('token'))

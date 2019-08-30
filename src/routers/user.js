@@ -54,9 +54,10 @@ router.get('/users/me', auth, (req, res) => {
 // can't get this to work. I want to have the user login, then click the change details button
 // and it sends you on to the changedetails page with a pre-filled form of user details
 // user changes their details and clicks save which sends a patch to users/me
-router.get('/users/changedetails', auth, async (req, res) => {
-	//res.send('/users/changedetails')
-	res.render('changedetails.hbs', {title: 'Change Details'})
+
+router.get('/changedetails', async (req, res) => {
+	//res.send(req.user)
+	res.render('changedetails', {title: 'Change Details'})
 })
 
 // logout of current session - requires authentication

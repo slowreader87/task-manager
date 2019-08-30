@@ -135,3 +135,17 @@ input[type='checkbox'] {
     margin: 0;
     flex:1
 }
+
+
+#msg {
+    display: inline;
+    margin-left: 10px;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
