@@ -3,12 +3,16 @@
 const endpoints = {
     users: 'http://localhost:3000/users',
     usersLogin: 'http://localhost:3000/users/login',
+    usersMe: 'http://localhost:3000/users/me',
+    usersLogout: 'http://localhost:3000/users/logout',
+    usersLogoutAll: 'http://localhost:3000/users/logoutall',
+    usersChangeDetails:'http://localhost:3000/users/changedetails',
     tasks: 'http://localhost:3000/tasks'
 }
 
 // generic request as promise (can use for GET, POST, DELETE and PATCH)
-
-const makeRequestAsPromise = (method, url, id=undefined, body=undefined) => {
+// added token argument which is added to all requests if provided
+const makeRequestAsPromise = (method, url, id=undefined, body=undefined, token=undefined) => {
     return new Promise ((resolve, reject) => {
         const xhr = new XMLHttpRequest()
 
@@ -17,6 +21,8 @@ const makeRequestAsPromise = (method, url, id=undefined, body=undefined) => {
         }
 
         xhr.open(method, url)
+
+        xhr.setRequestHeader('Authorization', 'Bearer ' + token)
 
         if(body) {
             xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8')
@@ -45,6 +51,11 @@ const getFromPromise = (endpoint) => {
     return makeRequestAsPromise('GET', endpoint)
 }
 
+// testing a GET with auth token. works.
+const getFromPromisewithToken = (endpoint, token) => {
+    return makeRequestAsPromise('GET', endpoint, null, null, token)
+}
+
 // so now get all tasks would be:
 // getFromPromise(endpoints.tasks)
 
@@ -67,6 +78,41 @@ const deleteFromPromise = (endpoint, id) =>{
 const patchFromPromise = async (endpoint, id, body) =>{
     return makeRequestAsPromise('PATCH', endpoint, id, body)
 }
+
+// create a GET request with Authorization token
+
+const makeRequestAsPromiseWithToken = (method, url, id=undefined, body=undefined, token=undefined) => {
+    return new Promise ((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+
+        if (id) {
+            url = url + '/' + id
+        }
+
+        xhr.open(method, url)
+        xhr.setRequestHeader('Authorization', 'Bearer ' + token)
+
+        if(body) {
+            xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8')
+        }
+
+        xhr.onload = () => {
+            if (xhr.status >= 200 && xhr.status <=299){
+                resolve(xhr.response)
+                
+                //reject(`${xhr.status} ${xhr.statusText} ${xhr.responseText}`)
+            }
+            
+            reject(xhr.response)
+            //resolve(JSON.parse(xhr.response))
+        }
+
+        xhr.send(JSON.stringify(body))
+    })
+}
+
+
+
 
 //patchFromPromise(endpoints.users,'5d5c20c0ff346c5317868949', {password:'doodle'})
 //patchFromPromise(endpoints.tasks,'5d5cf6e094db1f5827116e9c', {name:32})

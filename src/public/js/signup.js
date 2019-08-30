@@ -7,9 +7,11 @@ document.querySelector('#sign-up-form').addEventListener('submit', (e) => {
     const user = {
         name, email, password
     }
-    
+    // NOT WORKING to give me a token. does send me on to createtask though...
     postFromPromise(endpoints.users, user)
     .then((response)=> {
+        const token = JSON.parse(response).token
+        localStorage.setItem('token', JSON.stringify(token))
         location.assign('/createtask') // if successful forward to tasks area
     })
     .catch((e)=>console.log(e)) // if unsuccessful log the error to client console

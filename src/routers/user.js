@@ -5,6 +5,7 @@ const User = require('../models/user')
 const path = require('path')
 const hbs = require('hbs')
 const fs = require('fs')
+const auth = require('../middleware/auth')
 
 const router = new express.Router()
 
@@ -16,7 +17,7 @@ router.post('/users', async (req, res) => {
 		await user.save()
 		const token = await user.generateAuthToken()
 		res.status(201).send({user, token})
-		
+
 	} catch (e) {
 		if (e.message.includes('duplicate')){
 			res.status(400).send('User already exists, please sign-in')
@@ -44,31 +45,52 @@ router.post('/users/login', async (req, res) => {
 
 })
 
-// get all users - unlikely to need this in real app unless for an admin
-router.get('/users', async (req, res) => {
-	const users = await User.find({})
-
-	res.send(users)
+// get my user profile
+router.get('/users/me', auth, (req, res) => {	
+	res.send(req.user)
 })
 
-// Get single user. Need to handle the case where id given yields no valid user
-
-router.get('/users/:id', async (req, res) => {
-	const userId = req.params.id
-	try {
-        const user = await User.findById(userId)
-        if (!user){
-            return res.status(400).send()
-        }
-		res.send(user)
-	} catch (e) {
-		return res.status(500).send(e)
-	}
+// change profile details
+// can't get this to work. I want to have the user login, then click the change details button
+// and it sends you on to the changedetails page with a pre-filled form of user details
+// user changes their details and clicks save which sends a patch to users/me
+router.get('/users/changedetails', auth, async (req, res) => {
+	//res.send('/users/changedetails')
+	res.render('changedetails.hbs', {title: 'Change Details'})
 })
 
-// patch existing user
+// logout of current session - requires authentication
 
-router.patch('/users/:id', async (req, res) => {
+router.get('/users/logout', auth, async (req, res) => {
+
+	const activeToken = req.user.activeToken
+	
+	const indexOfToken = req.user.tokens.findIndex((token)=>{
+		return token === activeToken
+	})
+	
+	req.user.tokens.splice(indexOfToken, 1)
+	
+	// alternative would be to set the tokens array to a filtered version of itself:
+
+	// req.user.tokens = req.user.tokens.filter((token) => {
+	// 	return token !== activeToken
+	// }) // this didn't work... think you need a new variable which is cumbersome anyway
+	await req.user.save()
+	res.send('logged out of current session')
+})
+
+// logout of all sessions - requires authentication
+router.get('/users/logoutall', auth, async (req, res) => {
+	req.user.tokens = []
+	await req.user.save()
+	res.send('logged out of all sessions')
+})
+
+// patch existing user. Needs to change so that endpoint is just /usersMe and instead of user
+// being found from findById it is simply given over to auth and set as req.user
+
+router.patch('/users/me', auth, async (req, res) => {
 
 	const allowedUpdates = ['name', 'email', 'age', 'password']
 	const submittedUpdatesArr = Object.keys(req.body)
@@ -79,13 +101,9 @@ router.patch('/users/:id', async (req, res) => {
 	}
 
 	try {
-		const user = await User.findById(req.params.id)
-		if (!user){
-			return res.status(404).send()}
-
-		submittedUpdatesArr.forEach((update)=> {user[update]=req.body[update]})
-		await user.save()
-		res.send(user)
+		submittedUpdatesArr.forEach((update)=> {req.user[update]=req.body[update]})
+		await req.user.save()
+		res.send(req.user)
 		} 
 	catch (e) {
 		res.status(500).send(e)

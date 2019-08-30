@@ -17,9 +17,12 @@ const auth = async (req, res, next) => {
     // otherwise set the req.user object to the user found in the database
     // (which has more stuff on it than just what came from the request)
         req.user = user
-    // so now whenever 'auth' is added to the route it will change the req.user object if auth
-    // is successful. It will be the proper user from the database not just the submitted object
-    // from the client request
+    // now need to assign the token just given back to track that session. This is done by 
+    // adding a new property to the user called activeToken. So when a user logs out we can
+    // log out only that session. i.e. remove that token from their user.tokens array
+        req.user.activeToken = token
+    // so now whenever 'auth' is added to the route it will check for the user and if successful 
+    // will change the req.user to the proper user from the database with all its properties
         next()
     } catch (e){
         res.status(401).send('error: Please authenticate')

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"></html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Change Details</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            {{>header}}
+            <h2></h2>
+            <form id="change-details-form">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" placeholder="enter your name">
+                <label for="email">Enter your email address</label>
+                <input type="email" name="email" id="email">
+                <label for="password">Enter your password</label>
+                <input type="password" name="password" id="password">
+                <button type="submit">Sign-Up</button>
+            </form>
+            <p>Have an account? please <a href="/">sign-in</a></p>
+            <div class="separator"></div>
+            {{>footer}}
+        </div> <!-- end of container DIV-->
+    </div> <!-- end of wrapper DIV -->
+   
+    <script src="js/requests.js"></script>
+    <script src="js/changedetails.js"></script>
+</body>
+</html>
