@@ -62,7 +62,9 @@ const getFromPromisewithToken = (endpoint, token) => {
 //POST
 const postFromPromise = (endpoint, body) => {
     return makeRequestAsPromise('POST', endpoint, null, body)
-    //await makeRequestAsPromise('POST', endpoint, null, body).then((response)=> console.log(response)).catch((e)=>console.log(e))
+}
+const postFromPromiseWithToken = (endpoint, body, token) => {
+    return makeRequestAsPromise('POST', endpoint, null, body, token)
 }
 
 //postFromPromise(endpoints.tasks, {name:'handover money'})

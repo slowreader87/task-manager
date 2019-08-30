@@ -5,12 +5,13 @@ const Task = require('../models/task')
 const path = require('path')
 const hbs = require('hbs')
 const fs = require('fs')
+const auth = require('../middleware/auth')
 
 const router = new express.Router()
 
 // get all tasks
-router.get('/tasks', async (req, res) => {
-	const tasks = await Task.find({})
+router.get('/tasks', auth, async (req, res) => {
+	const tasks = await Task.find({owner:req.user._id})
     res.send(tasks)
 })
 
@@ -20,10 +21,13 @@ router.get('/createtask', (req, res) => {
 })
 
 // create a task
-router.post('/tasks', (req, res) => {
-	const task = new Task(req.body)
+router.post('/tasks', auth, (req, res) => {
 
-	console.log('task router posted a task')
+	const task = new Task({
+		...req.body,
+		owner: req.user._id
+	})
+	
 	task.save().then((task) => {
 		res.status(201).send(task)
 	}).catch((err) => {

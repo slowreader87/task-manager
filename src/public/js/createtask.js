@@ -1,10 +1,12 @@
 const resultsArea = document.querySelector('#results-area')
 
 const printTasksAndRemovesFromPromise = async () => {
+    
     const resultsArea = document.querySelector('#results-area')
     resultsArea.innerHTML = ''
     
-    const tasksRaw = await getFromPromise(endpoints.tasks)
+    const token = JSON.parse(localStorage.getItem('token'))
+    const tasksRaw = await getFromPromisewithToken(endpoints.tasks, token)
     const tasks = JSON.parse(tasksRaw)
 
     if (tasks.length > 0) {
@@ -55,8 +57,14 @@ document.querySelector('#create-task-form').addEventListener('submit', (e)=>{
         completed
     }
 
-    postFromPromise(endpoints.tasks, task)
-    printTasksAndRemovesFromPromise()
+    //postFromPromise(endpoints.tasks, task)
+    const token = JSON.parse(localStorage.getItem('token'))
+    postFromPromiseWithToken(endpoints.tasks, task, token).then((response) => {
+        printTasksAndRemovesFromPromise()
+    }).catch((e)  => {
+        console.log(e)
+    })
+    
     e.target.reset()
 })
 
