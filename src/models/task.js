@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const User = require('./user')
 
 const Task = mongoose.model('Task', {
     name: {
@@ -15,7 +16,8 @@ const Task = mongoose.model('Task', {
     },
     owner: {
         type: mongoose.SchemaTypes.ObjectId,
-        required: true
+        required: true,
+        ref: User
     }
 })
 

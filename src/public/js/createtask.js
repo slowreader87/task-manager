@@ -25,7 +25,13 @@ const printTasksAndRemovesFromPromise = async () => {
             removeButton.textContent = 'Remove'
             removeButton.className = 'remove-task'
     
-            taskDIV.textContent = task.name
+            //taskDIV.textContent = task.name
+            taskDIV.innerHTML = `<a class="note" href=/edittask#${task._id}>${task.name}</a>`
+            // const a = document.createElement('a')
+            // a.setAttribute('href', `/tasks/${task._id}`)
+            // a.value = 'blah'
+            
+            // taskDIV.appendChild(a)
             removeButton.addEventListener('click', () => {
                 deleteFromPromise(endpoints.tasks, task._id)
                 printTasksAndRemovesFromPromise()

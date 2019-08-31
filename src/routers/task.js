@@ -12,7 +12,9 @@ const router = new express.Router()
 // get all tasks
 router.get('/tasks', auth, async (req, res) => {
 	const tasks = await Task.find({owner:req.user._id})
-    res.send(tasks)
+	// tasks.populate('owner').execPopulate()
+	// res.send(tasks.owner.email)
+	res.send(tasks)
 })
 
 // create a task with form
@@ -35,12 +37,18 @@ router.post('/tasks', auth, (req, res) => {
 	})
 })
 
-// get a single task
-router.get('/tasks/:id', async (req, res) => {
+router.get('/edittask', (req, res) => {
+	res.render('edittask')
+})
+
+// get a single task MIGHT BE A CONFLICTING ROUTE
+router.get('/tasks/:id', auth, async (req, res) => {
 	const taskId = req.params.id
 
 	try {
 		const task = await Task.findById(taskId)
+		// task.populate('owner').execPopulate()
+		//res.send(task.owner.email)
 		res.send(task)
 	} catch (e) {
 		res.status(500).send(e)

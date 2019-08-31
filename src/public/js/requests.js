@@ -56,6 +56,14 @@ const getFromPromisewithToken = (endpoint, token) => {
     return makeRequestAsPromise('GET', endpoint, null, null, token)
 }
 
+const getFromPromisewithIdAndToken = (endpoint, id, token) => {
+    return makeRequestAsPromise('GET', endpoint, id, null, token)
+}
+
+const patchFromPromiseWithIdAndToken = (endpoint, id, body, token) => {
+    return makeRequestAsPromiseWithToken('PATCH', endpoint, id, body, token)
+}
+
 // so now get all tasks would be:
 // getFromPromise(endpoints.tasks)
 

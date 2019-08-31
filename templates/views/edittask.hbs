@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create Task</title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <h2>Edit your task</h2>
+                <form id="edit-task-form">
+                    <label for="input-task-title">Title</label>
+                    <input type="text" id="input-task-name" name="taskName" placeholder="task name">
+                    <label for="task-description">Description</label>
+                    <textarea name="taskDescription" id="task-description" placeholder="desribe your task"></textarea>
+                    <label for="completed" id="checkbox-label">Completed</label>
+                    <input type="checkbox" id="completed" name="taskCompleted">
+                    <button type="submit">Save Edits</button>
+                    <p id="msg"></p>
+                </form><div class="separator"></div>
+            <div id="results-area"></div>
+        </div> <!-- end of wrapper DIV -->
+    </div> <!-- end of container DIV -->
+    <script src="./js/requests.js"></script>
+    <script src="./js/edittask.js"></script>
+</body>
+</html>
