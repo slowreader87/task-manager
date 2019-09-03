@@ -74,3 +74,16 @@ document.querySelector('#logout-all').addEventListener('click', ()=>{
 document.querySelector('#go-to-tasks').addEventListener('click', () => {
     location.assign('/createtask')
 })
+// FINISH THIS UP
+document.querySelector('#delete-account').addEventListener('click', async () => {
+    const token = JSON.parse(localStorage.getItem('token'))
+    // get user id
+    const userRaw = await getFromPromisewithToken(endpoints.usersMe, token)
+    const user = JSON.parse(userRaw)
+
+    await deleteFromPromiseWithToken(endpoints.users, token).then((res) => {
+        console.log(res)
+    }).catch((e) =>{
+        console.log(e)
+    })
+})

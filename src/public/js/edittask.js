@@ -24,14 +24,14 @@ document.querySelector('#edit-task-form').addEventListener('submit', (e) => {
     .then((response) => { 
         document.querySelector('#msg').textContent = 'Edits Saved'
         document.querySelector('#msg').className = 'green'
-    }).then(() => {
-        setTimeout(()=>{
-            document.querySelector('#msg').textContent = 'Redirecting back to tasks...'
-        }, 2000)
+    // }).then(() => {
+    //     setTimeout(()=>{
+    //         document.querySelector('#msg').textContent = 'Redirecting back to tasks...'
+    //     }, 1)
     }).then(() => {
         setTimeout(()=>{
             location.assign('/createtask')
-        }, 3000)
+        }, 2000)
     }).catch((e) => {
         console.log(e)
     })

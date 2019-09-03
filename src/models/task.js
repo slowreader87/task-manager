@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const User = require('./user')
+console.log('user model is running')
 
 const Task = mongoose.model('Task', {
     name: {
@@ -17,17 +18,9 @@ const Task = mongoose.model('Task', {
     owner: {
         type: mongoose.SchemaTypes.ObjectId,
         required: true,
-        ref: User
+        ref: 'User'
     }
 })
 
 module.exports = Task
-
-// const newTask = new Task({name: "Check on ReMarkable Return"})
-
-// newTask.save().then((task)=>{
-//     console.log(task)
-// }).catch((e)=> {
-//     console.log(e)
-// })
 

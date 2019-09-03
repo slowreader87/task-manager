@@ -25,6 +25,13 @@ document.querySelector('#change-details-form').addEventListener('submit', (e) =>
     .then(() => {
         document.querySelector('#msg').textContent = 'Updates Saved'
         document.querySelector('#msg').className = 'green'
-    })
-    .catch((e)=>console.log(e))
+    }).then(() => {
+        setTimeout(()=>{
+            document.querySelector('#msg').textContent = 'Redirecting to home'
+        }, 2000)
+    }).then(() => {
+        setTimeout(() => {
+            location.assign('/')
+        }, 3000)
+    }).catch((e)=>console.log(e))
 })

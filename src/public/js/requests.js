@@ -8,6 +8,7 @@ const endpoints = {
     usersLogoutAll: 'http://localhost:3000/users/logoutall',
     ChangeDetails:'http://localhost:3000/changedetails',
     tasks: 'http://localhost:3000/tasks'
+
 }
 
 // generic request as promise (can use for GET, POST, DELETE and PATCH)
@@ -57,7 +58,7 @@ const getFromPromisewithToken = (endpoint, token) => {
 }
 
 const getFromPromisewithIdAndToken = (endpoint, id, token) => {
-    return makeRequestAsPromise('GET', endpoint, id, null, token)
+    return makeRequestAsPromiseWithToken('GET', endpoint, id, null, token)
 }
 
 const patchFromPromiseWithIdAndToken = (endpoint, id, body, token) => {
@@ -80,6 +81,10 @@ const postFromPromiseWithToken = (endpoint, body, token) => {
 //DELETE
 const deleteFromPromise = (endpoint, id) =>{
     return makeRequestAsPromise('DELETE', endpoint, id)
+}
+
+const deleteFromPromiseWithToken = (endpoint, token) => {
+    return makeRequestAsPromiseWithToken('DELETE', endpoint, null, null, token)
 }
 
 //deleteFromPromise(endpoints.tasks, '5d5c2025e121b053063140b8')

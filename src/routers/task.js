@@ -6,15 +6,18 @@ const path = require('path')
 const hbs = require('hbs')
 const fs = require('fs')
 const auth = require('../middleware/auth')
+const User = require('../models/user')
 
 const router = new express.Router()
 
 // get all tasks
 router.get('/tasks', auth, async (req, res) => {
-	const tasks = await Task.find({owner:req.user._id})
-	// tasks.populate('owner').execPopulate()
-	// res.send(tasks.owner.email)
-	res.send(tasks)
+	// either do the following
+	const tasks = await req.user.populate('tasks').execPopulate() // either or
+	res.send(req.user.tasks)
+	// or 
+	// const tasks = await Task.find({owner:req.user._id}) 
+	// res.send(tasks)
 })
 
 // create a task with form
@@ -37,25 +40,27 @@ router.post('/tasks', auth, (req, res) => {
 	})
 })
 
+// renders the edittask hbs template
 router.get('/edittask', (req, res) => {
 	res.render('edittask')
 })
 
-// get a single task MIGHT BE A CONFLICTING ROUTE
+// get a single task. Problem with nested routes not picking up style sheet or js files.
 router.get('/tasks/:id', auth, async (req, res) => {
 	const taskId = req.params.id
 
 	try {
-		const task = await Task.findById(taskId)
-		// task.populate('owner').execPopulate()
-		//res.send(task.owner.email)
+		const task = await Task.findOne({_id:taskId, owner:req.user._id})
+		if (!task) {
+			res.status(404).send('no task found')
+		}
 		res.send(task)
 	} catch (e) {
 		res.status(500).send(e)
 	}
 })
 
-// patch a task
+// patch a task. Used by the edittask.js file
 
 router.patch('/tasks/:id', async (req, res) => {
 	const submittedUpdatesArr = Object.keys(req.body)
@@ -87,6 +92,23 @@ router.delete('/tasks/:id', async (req, res) => {
 	}
 })
 
+// Test user route to check virtual property 'tasks' added to users with tasks
+router.get('/testingtasks/:id', async (req, res) => {
+	const userId = req.params.id
+	const user = await User.findById(userId)
+	await user.populate('tasks').execPopulate()
+	res.send(user.tasks) 
+})
 
+// Test task route to check that all owner properties can be reached from a task
+// via the new owner property on the task schema
+
+router.get('/testinguserinfo/:id', async (req, res) => {
+	const taskId = req.params.id
+	const task = await Task.findById(taskId)
+	await task.populate('owner').execPopulate() // if you don't run this line you can only return
+	// the owner's object ID. if you use this line though you can return all info for the owner
+	res.send(task.owner)
+})
 
 module.exports = router

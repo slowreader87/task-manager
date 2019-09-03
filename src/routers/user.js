@@ -45,6 +45,11 @@ router.post('/users/login', async (req, res) => {
 
 })
 
+router.delete('/users', auth, async (req, res) => {
+	await req.user.remove()
+	res.send(req.user)
+})
+
 // get my user profile
 router.get('/users/me', auth, (req, res) => {	
 	res.send(req.user)
