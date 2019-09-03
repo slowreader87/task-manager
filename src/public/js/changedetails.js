@@ -35,3 +35,22 @@ document.querySelector('#change-details-form').addEventListener('submit', (e) =>
         }, 3000)
     }).catch((e)=>console.log(e))
 })
+
+
+document.querySelector('#delete-account').addEventListener('click', async () => {
+    const token = JSON.parse(localStorage.getItem('token'))
+    // get user id
+    localStorage.clear()
+    const userRaw = await getFromPromisewithToken(endpoints.usersMe, token)
+    const user = JSON.parse(userRaw)
+
+    await deleteFromPromiseWithToken(endpoints.users, token).then((res) => {
+        document.querySelector('#msg').textContent = 'Account and all tasks removed'
+        document.querySelector('#msg').className = 'red'
+        setTimeout(()=>{
+            location.assign('/')
+        }, 2000)
+    }).catch((e) =>{
+        console.log(e)
+    })
+})
