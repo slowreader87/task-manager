@@ -3,7 +3,7 @@
 let token = ''
 
 document.querySelector('#sign-in-form').addEventListener('submit', (event) => {
-    event.preventDefault()
+    //event.preventDefault()
     const email = event.target.elements.email.value
     const password = event.target.elements.password.value
 
@@ -35,55 +35,42 @@ document.querySelector('#sign-in-form').addEventListener('submit', (event) => {
 //     .catch((e)=>console.log(e))
 // })
 
-document.querySelector('#view-details').addEventListener('click', () => {
-    const token = JSON.parse(localStorage.getItem('token'))
-    getFromPromisewithToken(endpoints.usersMe, token)
-    .then((response) => {
-        console.log(response)
-    }).catch((e)=>{
-        console.log(e)
-    })
-})
+// document.querySelector('#view-details').addEventListener('click', () => {
+//     const token = JSON.parse(localStorage.getItem('token'))
+//     getFromPromisewithToken(endpoints.usersMe, token)
+//     .then((response) => {
+//         console.log(response)
+//     }).catch((e)=>{
+//         console.log(e)
+//     })
+// })
 
 // ADD A BUTTON TO INDEX.HBS (SIGNIN PAGE) WHICH WHEN CLICKED MAKES A GET REQUEST TO /USERS/ME
 // RETRIEVING THE TOKEN FROM LOCALSTORAGE
 // THEN CONSOLE LOG THE RESPONSE. THAT ROUTE IS BEHIND AUTH SO SHOULDN'T WORK WITHOUT THE TOKEN
 
-document.querySelector('#logout').addEventListener('click', () => {
-    const token = JSON.parse(localStorage.getItem('token'))
-    getFromPromisewithToken(endpoints.usersLogout, token)
-    .then((response) => {
-        console.log(response)
-        localStorage.clear()
-    }).catch((e)=>{
-        console.log(e)
-    })
-})
+// document.querySelector('#logout').addEventListener('click', () => {
+//     const token = JSON.parse(localStorage.getItem('token'))
+//     getFromPromisewithToken(endpoints.usersLogout, token)
+//     .then((response) => {
+//         console.log(response)
+//         localStorage.clear()
+//     }).catch((e)=>{
+//         console.log(e)
+//     })
+// })
 
-document.querySelector('#logout-all').addEventListener('click', ()=>{
-    const token = JSON.parse(localStorage.getItem('token'))
-    getFromPromisewithToken(endpoints.usersLogoutAll, token)
-    .then((response) => {
-        console.log(response)
-        localStorage.clear()
-    }).catch((e) => {
-        console.log(e)
-    })
-})
 
-document.querySelector('#go-to-tasks').addEventListener('click', () => {
-    location.assign('/createtask')
-})
 // FINISH THIS UP
-document.querySelector('#delete-account').addEventListener('click', async () => {
-    const token = JSON.parse(localStorage.getItem('token'))
-    // get user id
-    const userRaw = await getFromPromisewithToken(endpoints.usersMe, token)
-    const user = JSON.parse(userRaw)
+// document.querySelector('#delete-account').addEventListener('click', async () => {
+//     const token = JSON.parse(localStorage.getItem('token'))
+//     // get user id
+//     const userRaw = await getFromPromisewithToken(endpoints.usersMe, token)
+//     const user = JSON.parse(userRaw)
 
-    await deleteFromPromiseWithToken(endpoints.users, token).then((res) => {
-        console.log(res)
-    }).catch((e) =>{
-        console.log(e)
-    })
-})
+//     await deleteFromPromiseWithToken(endpoints.users, token).then((res) => {
+//         console.log(res)
+//     }).catch((e) =>{
+//         console.log(e)
+//     })
+// })

@@ -62,11 +62,15 @@ const pageText = {
 // site root
 app.get('', (req, res) => {
 	res.render('index', {
-		title: 'My Task-Manager App',
-		body: 'Enter and track your tasks here!',
+		title: 'Welcome to Task-Manager',
+		caption: 'Create and manage your tasks',
 		copyright: pageText.copyright,
 		credits: pageText.credits
 	})
+})
+
+app.get('/signup', (req, res) => {
+	res.render('signup')
 })
 
 // app.get('/changedetails', (req, res) => {

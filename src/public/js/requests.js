@@ -1,4 +1,5 @@
 //console.log('requests.js has been called')
+console.log('requests.js checking in')
 
 const endpoints = {
     users: 'http://localhost:3000/users',

@@ -21,6 +21,10 @@ body {
     padding: 10px;
 }
 
+.container h2, .container h3 {
+    text-align: center;
+}
+
 .tasks-area-title {
     color: #3d3c3c;
     margin-bottom: 20px;
@@ -66,14 +70,14 @@ a {
     /* background: rgb(238, 238, 238); */
     background: rgba(219, 219, 243, 0.2);
     padding: 3px 6px;
-    border-radius: 5px;
+    /* border-radius: 5px; */
 }
 
 a:hover {
     /* background: white; */
     background: rgba(219, 219, 243, 0.6);
     padding: 3px 6px;
-    border-radius: 5px;   
+    /* border-radius: 5px;    */
 }
 
 .note {
@@ -163,9 +167,29 @@ input[type='checkbox'] {
     color: green;
 }
 
-#nav li {
-    display: inline;
-    float: right;
+#nav {
+    display: flex;
+    /* float: right; */
     margin-left: 10px;
     font-size: 1.2rem;
+    max-width: 500px;
+    margin: 20px auto;
+    justify-content: center;
+    /* border: 1px solid red; */
+}
+#nav ul {
+    border: none;
+}
+
+#nav li {
+    display:inline;
+    margin: 0 5px;
+}
+
+#nav li a {
+    background: white;
+}
+
+#nav li a:hover {
+    background: rgb(226, 226, 226);
 }

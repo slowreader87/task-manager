@@ -74,4 +74,15 @@ document.querySelector('#create-task-form').addEventListener('submit', (e)=>{
     e.target.reset()
 })
 
+document.querySelector('#logout').addEventListener('click', () => {
+    const token = JSON.parse(localStorage.getItem('token'))
+    getFromPromisewithToken(endpoints.usersLogout, token)
+    .then((response) => {
+        console.log(response)
+        localStorage.clear()
+    }).catch((e)=>{
+        console.log(e)
+    })
+})
+
 

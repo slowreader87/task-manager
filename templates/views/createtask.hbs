@@ -9,9 +9,9 @@
 
 </head>
 <body>
+    {{>header}}
     <div class="wrapper">
         <div class="container">
-            {{>header}}
             <h2>Enter your task here</h2>
             <form id="create-task-form">
                 <label for="input-task-title">Title</label>
@@ -22,7 +22,7 @@
                 <input type="checkbox" id="completed" name="completed">
                 <button type="submit">Create Task</button>
             </form>
-            <div class="separator"></div>
+            <!--<div class="separator"></div>-->
             <div id="results-area"></div>
         </div> <!-- end of wrapper DIV -->
     </div> <!-- end of container DIV -->

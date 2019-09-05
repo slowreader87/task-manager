@@ -11,6 +11,8 @@
     <div class="wrapper">
         <div class="container">
             {{>header}}
+            <h2>{{title}}</h2>
+            <h3>{{caption}}</h3>
             <div class="separator"></div>
             <form id="sign-in-form">
                 <label for="email">Enter your email address</label>
@@ -19,9 +21,9 @@
                 <input type="password" name="password" id="password">
                 <button type="submit">Sign-in</button>
             </form>
-            <p>If you  have an account please sign in. If you would like one, please<a href="signup.html">sign-up</a></p>
+            <p>If you  have an account please sign in. If you would like one, please<a href="/signup">sign-up</a></p>
             <!-- <a href="/changedetails">Change Details</a> -->
-            <input type="button" value="View Details (console)" id="view-details">
+            <!-- <input type="button" value="View Details (console)" id="view-details"> -->
             <!-- <input type="button" value="Logout" id="logout"> -->
             <!-- <input type="button" value="Logout all sessions" id="logout-all"> -->
             <!-- <input type="button" value="Go to Tasks" id="go-to-tasks"> -->
